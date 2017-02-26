@@ -16,8 +16,9 @@ def swiftc_executable(environment=None):
 
     try:
         developer_dir = environment["DEVELOPER_DIR"]
-        toolchain = environment["TOOLCHAINS"].split(".")[-1] + ".xctoolchain"
-        return os.path.join(developer_dir, "Toolchains", toolchain,
+        toolchain = environment["TOOLCHAINS"].rsplit(".", 1)[-1]
+        toolchain_path = toolchain + ".xctoolchain"
+        return os.path.join(developer_dir, "Toolchains", toolchain_path,
                             "usr/bin/swiftc")
     except KeyError:
         return "swiftc"
