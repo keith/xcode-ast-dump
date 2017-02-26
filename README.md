@@ -1,6 +1,8 @@
 # xcode-ast-dump
 
 This is a simple script for dumping the Swift AST from within Xcode.
+Read more about how and why this works
+[here](http://stackoverflow.com/a/42463996/902968).
 
 ## Usage
 
