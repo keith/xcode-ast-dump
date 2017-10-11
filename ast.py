@@ -44,6 +44,30 @@ def build_parser():
     parser.add_argument("-parseable-output", action="store_true")
     return parser
 
+def ast_dump_file(arguments):
+    for arg in arguments:
+        if arg.startswith("-DAST_DUMP_FILE="):
+            return arg.split("=")[1]
+    return None     
+
+def dump_to_file(filename, command):
+    if filename is None:
+        return False
+
+    print("Using file %s to dump output" % filename)
+    sys.stdout.flush()
+
+    try:
+        with open(filename, "w") as outfile:
+            subprocess.call(command, stdout = outfile, stderr = outfile)  
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        sys.stdout.flush()
+
+    return True    
+
 
 def main():
     _, other_arguments = build_parser().parse_known_args()
@@ -52,7 +76,10 @@ def main():
         print(" ".join(command))
         print("\nAST:\n")
         sys.stdout.flush()
-    print(subprocess.check_output(command))
+
+    if not dump_to_file(ast_dump_file(other_arguments), command):
+        print(subprocess.check_output(command))
+
     if is_in_xcode():
         print("Exiting with 1 to stop the build")
         sys.exit(1)

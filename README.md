@@ -11,11 +11,14 @@ In Xcode:
 1. In the build settings for the target that you're interested in
    dumping the AST for, set the `SWIFT_EXEC` user defined build setting
    to the path of `ast.py`.
+1. Add `AST_DUMP_FILE="$(SRCROOT)/$(TARGET_NAME).ast"` to 
+   `Preprocessor Macros`(`GCC_PREPROCESSOR_DEFINITIONS`) setting.
+   You can put any path you want. This path will be used for saving build 
+   log information with ast tree dump
 1. Build the target
-1. In the Report Navigator in Xcode, capture the AST output from the
-   build log for the target.
+1. Check output file, you set in `AST_DUMP_FILE` setting.
 
-In a shell (easier to capture output):
+In a shell:
 
 1. Build your target normally
 1. Go to the Report Navigator
