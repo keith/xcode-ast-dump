@@ -57,14 +57,8 @@ def dump_to_file(filename, command):
     print("Using file %s to dump output" % filename)
     sys.stdout.flush()
 
-    try:
-        with open(filename, "w") as outfile:
-            subprocess.call(command, stdout = outfile, stderr = outfile)  
-    except Exception as e:
-        print(e)
-        return False
-    finally:
-        sys.stdout.flush()
+    with open(filename, "w") as outfile:
+        subprocess.call(command, stdout = outfile, stderr = outfile)  
 
     return True    
 
